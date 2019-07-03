@@ -8,6 +8,8 @@ use 'gradle project' to build project
 * Developer Tools 
     * Lombok
     * Spring Configuration Processor
+* Web
+    * web service     
 * SQL
     * Spring Data JPA
     * Mysql Driver
@@ -60,6 +62,7 @@ publishing {
 # Jenkinsfile - jenkins build
 
 create Jenkinsfile
+
 **change workspace path**
 
 ```
@@ -91,5 +94,6 @@ pipeline {
 
 
 Done.
+
 Run ./install.sh for local maven publish
 
