@@ -1,6 +1,6 @@
 package com.lvkui.servercommon.base;
 
-import com.eden.common.token.TokenService;
+import com.lvkui.servercommon.token.TokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
