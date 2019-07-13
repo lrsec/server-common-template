@@ -30,6 +30,8 @@ dependencies {
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compile('com.github.binarywang:weixin-java-miniapp:3.4.0')
+    compile('com.github.binarywang:weixin-java-pay:3.4.0')
 }
 
 jar {
