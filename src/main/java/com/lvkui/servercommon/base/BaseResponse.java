@@ -11,7 +11,7 @@ public class BaseResponse {
   public static final BaseResponse SUCCESS = new BaseResponse(true, 0, "");
   public static final BaseResponse INTERNAL_ERROR = new BaseResponse(false, 500, "internal error");
   public static final BaseResponse PARAM_ERROR = new BaseResponse(false, 400, "invalid params");
-  public static final BaseResponse NOT_LOGIN = new BaseResponse(false, 401, "login timeout");
+  public static final BaseResponse NOT_LOGIN = new BaseResponse(false, 401, "用户未登录");
   public static final BaseResponse NO_AUTH = new BaseResponse(false, 402, "no auth");
   public static final BaseResponse INVALID_USER_PWD_ERR = new BaseResponse(false, 403, "user name or password incorrect");
   public static final BaseResponse VERIFY_CODE_FAIL = new BaseResponse(false, 403, "verification code fail");

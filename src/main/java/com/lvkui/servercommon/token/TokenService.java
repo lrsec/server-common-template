@@ -14,10 +14,8 @@ import java.util.Random;
 @Slf4j
 @Service
 public class TokenService {
-  @Autowired
-  private TokenServiceConfig tokenServiceConfig;
-  @Autowired
-  private StringRedisTemplate redisTemplate;
+  @Autowired private TokenServiceConfig tokenServiceConfig;
+  @Autowired private StringRedisTemplate redisTemplate;
 
   private Random random = new Random();
 
@@ -69,6 +67,10 @@ public class TokenService {
   }
 
   public boolean verifyToken(long uid, String token) {
+    if (token == null) {
+      return false;
+    }
+
     String key = getTokenKey(uid);
     Double score = redisTemplate.opsForZSet().score(key, token);
 

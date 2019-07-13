@@ -9,6 +9,8 @@ public class ResponseException extends RuntimeException {
   private int code;
   private String message;
 
+  public static final ResponseException NO_AUTH_EXCEPTION = new ResponseException("用户未登录", 401, "用户未登录");
+
   public ResponseException() {
     super();
   }
@@ -24,4 +26,5 @@ public class ResponseException extends RuntimeException {
     this.code = code;
     this.message = message;
   }
+
 }

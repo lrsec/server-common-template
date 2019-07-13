@@ -1,7 +1,7 @@
 package com.lvkui.servercommon.base;
 
-import com.lvkui.servercommon.token.TokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lvkui.servercommon.token.TokenService;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +11,12 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
+import java.util.Objects;
 
 @Slf4j
 @Service
 public class TokenInterceptor extends HandlerInterceptorAdapter {
-  @Autowired
-  TokenService tokenService;
+  @Autowired TokenService tokenService;
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -31,14 +31,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
       long uid = Integer.parseInt(request.getHeader("Uid"));
       String token = request.getHeader("Token");
 
-      boolean verified = false;
-      if (uid == -1024 && token.equals("admin")) {
-        verified = true;
-      } else if (uid == -1 && token.equals("eden-scaner")) {
-        verified = true;
-      } else {
-        verified = tokenService.verifyToken(uid, token);
-      }
+      boolean verified = verify(uid, token);
 
       if (!verified) {
         log.error("fail to verify token for uid {} and token {}", uid, token);
@@ -53,6 +46,28 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
       responseInvalidToken(response);
       return false;
     }
+  }
+
+  public void verifyToken(long uid, String token) {
+    boolean verified = verify(uid, token);
+
+    if (!verified) {
+      throw ResponseException.NO_AUTH_EXCEPTION;
+    }
+  }
+
+  private boolean verify(long uid, String token) {
+    boolean verified = false;
+
+    if (uid == -1024 && Objects.equals(token, "admin")) {
+      verified = true;
+    } else if (uid == -1 && Objects.equals(token, "eden-scaner")) {
+      verified = true;
+    } else {
+      verified = tokenService.verifyToken(uid, token);
+    }
+
+    return verified;
   }
 
   @SneakyThrows
